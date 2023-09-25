@@ -16,11 +16,11 @@ router.get("/:id", function (req, res, next) {
     }
 
     const userData = JSON.parse(data);
-    console.log(userData);
+    // console.log(userData);
 
     // Find the user with the specified ID
     const user = userData.find((u) => u.id == userId);
-    console.log(user);
+    // console.log(user);
 
     if (!user) {
       return res.status(404).send({ message: "User not found" });

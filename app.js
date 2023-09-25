@@ -20,8 +20,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+// home route
 app.use("/", indexRouter);
+// get all users
 app.use("/users", usersRouter);
+// get id specified user
 app.use("/users", userRouter);
 
 // catch 404 and forward to error handler
