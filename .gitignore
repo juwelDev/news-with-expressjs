@@ -20,7 +20,7 @@ jspm_packages/
 *.tgz
 *.zip
 *.rar
-*.7zip
+
 
 # Random crap
 trash
@@ -33,7 +33,6 @@ trash
 
 # Gatsby related
 .cache/
-public
 
 # Editor
 .vscode
