@@ -33,7 +33,7 @@ trash
 
 # Gatsby related
 .cache/
-public
+
 
 # Editor
 .vscode
