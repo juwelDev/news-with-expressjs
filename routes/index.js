@@ -3,10 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-
-  const counte = (15*5);
-
-  res.render('index', { title: 'ExpressJS', counte: counte });
+  res.render('index', { title: 'ExpressJS' });
 });
 
 module.exports = router;
