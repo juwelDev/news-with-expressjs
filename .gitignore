@@ -33,7 +33,10 @@ trash
 
 # Gatsby related
 .cache/
+<<<<<<< HEAD
 
+=======
+>>>>>>> b08c653f19dfdaa8938ec5f263a45024a97736e2
 
 # Editor
 .vscode
