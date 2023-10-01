@@ -5,10 +5,9 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('expressjs:server');
+var debug = require('debug')('news-with-expressjs:server');
 var http = require('http');
-require('dotenv').config()
-
+require("dotenv").config();
 /**
  * Get port from environment and store in Express.
  */

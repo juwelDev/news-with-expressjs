@@ -1,9 +1,10 @@
 {
-  "name": "expressjs",
+  "name": "news-with-expressjs",
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon -e js,ejs,json ./bin/www"
+    "start": "nodemon -e js,ejs,json ./bin/www",
+    "tailwind": "postcss ./public/assets/css/main.css -o ./public/assets/css/style.css --watch"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -12,9 +13,13 @@
     "ejs": "~2.6.1",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "postcss-cli": "^10.1.0"
   },
   "devDependencies": {
-    "nodemon": "^3.0.1"
+    "autoprefixer": "^10.4.16",
+    "nodemon": "^3.0.1",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.3.3"
   }
 }
