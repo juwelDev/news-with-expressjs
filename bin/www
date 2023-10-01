@@ -5,9 +5,10 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('mahbuba-news-express:server');
+var debug = require('debug')('newsexpressjs:server');
 var http = require('http');
 require('dotenv').config();
+
 /**
  * Get port from environment and store in Express.
  */
@@ -25,10 +26,10 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
-// server.listen(port);
-
 server.listen(port, () => {
-console.log(`Example app listening on port http://localhost:${port}`)});
+  console.log(`Example app listening on port http://localhost:${port}`)
+});
+
 server.on('error', onError);
 server.on('listening', onListening);
 
