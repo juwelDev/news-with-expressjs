@@ -1,13 +1,12 @@
 {
-  "name": "expressjs",
+  "name": "news-with-expressjs",
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon -e js,ejs,json ./bin/www",
-    "tailwind": "postcss ./public/assets/css/main.css -o ./public/assets/css/styles.css --watch"
+    "start": "nodemon ./bin/www"
   },
   "dependencies": {
-    "bcryptjs": "^2.4.3",
+    "bcrypt": "^5.1.1",
     "connect-flash": "^0.1.1",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
@@ -23,13 +22,14 @@
     "mongoose": "^7.5.3",
     "morgan": "~1.9.1",
     "multer": "^1.4.5-lts.1",
-    "nodemon": "^3.0.1",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
+    "post-cli": "^1.0.5",
     "postcss-cli": "^10.1.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.16",
+    "nodemon": "^3.0.1",
     "postcss": "^8.4.31",
     "tailwindcss": "^3.3.3"
   }
