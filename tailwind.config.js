@@ -3,10 +3,25 @@ module.exports = {
   content: [
     "./views/**/*.{html,js,ejs}",
     './pages/**/*.{html,js}',
-    './components/**/*.{html,js}'
+    './components/**/*.{html,js}',
+    
   ],
   theme: {
     extend: {},
   },
   plugins: [],
 }
+// module.exports = {
+
+//   plugins: [
+//       require('flowbite/plugin')
+//   ]
+
+// }
+// module.exports = {
+
+//   content: [
+//       "./node_modules/flowbite/**/*.js"
+//   ]
+
+// }
