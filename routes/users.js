@@ -1,5 +1,14 @@
 var express = require('express');
 var router = express.Router();
+
+/* GET users listing. */
+router.get('/', function(req, res, next) {
+  res.send('respond with a resource');
+});
+
+
+  var express = require('express');
+var router = express.Router();
 var multer = require('multer');
 
 var storage = multer.diskStorage({
@@ -21,6 +30,7 @@ const { body, validationResult } = require('express-validator');
 var User = require('../models/user');
 
 /* GET users listing. */
+
 router.get('/', function (req, res, next) {
   res.send('respond with a resource');
 });
