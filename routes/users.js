@@ -18,11 +18,62 @@ var passport = require('passport');
 var localStrategy = require('passport-local').Strategy;
 const { body, validationResult } = require('express-validator');
 
-var User = require('../models/user');
+var UserModel = require('../models/userModel');
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
   res.send('respond with a resource');
+});
+
+router.post('/login',
+  passport.authenticate('local', {
+    failureRedirect: '/login',
+    failureFlash: 'Invalid username or password'
+  }),
+
+  function (req, res) {
+    req.flash('success', 'You are now logged in');
+    res.redirect('/');
+  }
+);
+
+passport.serializeUser(function (user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function (id, done) {
+  UserModel.getUserById(id, function (err, user) {
+    done(err, user);
+  });
+});
+
+passport.use(new localStrategy(function (username, password, done) {
+  UserModel.getUserByUsername(username, function (err, user) {
+
+    console.log('user', user);
+
+
+    if (err) throw err;
+
+    if (!user) {
+      return done(null, false, { message: 'Unkn  own User' });
+    }
+
+    UserModel.comparePassword(password, user.password, function (err, isMatch) {
+      if (err) return done(err);
+      if (isMatch) {
+        return done(null, user);
+      } else {
+        return done(null, false, { message: 'Invalid Password' });
+      }
+    })
+  });
+}));
+
+router.get('/logout', function (req, res) {
+  req.session.destroy(function (err) {
+    res.redirect('/login'); //Inside a callback… bulletproof!
+  });
 });
 
 router.post('/register',
@@ -48,7 +99,7 @@ router.post('/register',
     if (!errors.isEmpty()) {
       res.render('register', { title: 'User account register', errors: errors.errors, user: req.user });
     } else {
-      var newUser = new User({
+      var newUser = new UserModel({
         name: name,
         email: email,
         username: username,
@@ -57,7 +108,7 @@ router.post('/register',
         role: 'user',
       });
 
-      const userName = await User.findOne({ username: username });
+      const userName = await UserModel.findOne({ username: username });
 
       if (userName) {
         const errdt = [
@@ -71,7 +122,7 @@ router.post('/register',
         res.render('register', { title: 'User account register', errors: errdt, user: req.user });
       } else {
 
-        const emailData = await User.findOne({ email: email });
+        const emailData = await UserModel.findOne({ email: email });
 
         if (emailData) {
           const errdt = [
@@ -85,14 +136,13 @@ router.post('/register',
           res.render('register', { title: 'User account register', errors: errdt, user: req.user });
         } else {
 
-          User.createUser(newUser, function (err, user) {
+          UserModel.createUser(newUser, function (err, user) {
             console.log(err);
             if (err) throw err;
             console.log(user);
           });
 
-          req.flash('success', 'You are now registered and can loging now..')
-          res.location('/');
+          req.flash('success', 'You are now registered and can loging now..');
           res.redirect('/');
         }
       }

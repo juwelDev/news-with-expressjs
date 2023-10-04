@@ -5,12 +5,23 @@ const base_url = process.env.BASEURL || 'http://localhost:3000';
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  res.render('index', {
-    title: 'ExpressJS',
+
+  const success = req.flash('success');
+  const error = req.flash('error');
+  
+  console.log('flash success', success); 
+  console.log('flash error', error); 
+
+  const data = {
+    title: 'Nes Express',
     baseUrl: base_url,
-    flashsms: req.flash('success'),
-    flasherr: req.flash('error'),
-  });
+    flashSuccess: success,
+    flashError: error,
+    // user: req.user,
+    // posts: posts,
+  };
+
+  res.render('index', data);
 });
 
 

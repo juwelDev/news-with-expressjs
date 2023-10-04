@@ -20,19 +20,45 @@
     <div class="w-full bg-slate-400"><%- include('header'); -%></div>
     <!-- Header -->
     <!-- Main -->
+
     <div class="w-full bg-white">
 
-      
+      <div class="w-full">
+        <% if(flashSuccess=='' ){ }else{ %>
+          <div class="w-full text-center mb-4">
+            <div class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
+              role="alert">
+              <span class="font-medium">
+                <%= flashSuccess %>
+              </span>
+            </div>
+          </div>
+          <% }; %>
+
+            <% if(flashError=='' ){ }else{ %>
+              <div class="w-full text-center mb-4">
+                <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
+                  role="alert">
+                  <span class="font-medium">
+                    <%= flashError %>
+                  </span>
+                </div>
+              </div>
+              <% }; %>
+      </div>
+
       <div class="w-full grid grid-cols-4 gap-4 content-center p-3">
         <div
           class="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
           <a href="#">
-            <img class="rounded-t-lg" src="https://media.istockphoto.com/id/1370772148/photo/track-and-mountains-in-valle-del-lago-somiedo-nature-park-asturias-spain.jpg?s=612x612&w=0&k=20&c=QJn62amhOddkJSbihcjWKHXShMAfcKM0hPN65aCloco=" alt="" />
+            <img class="rounded-t-lg"
+              src="https://media.istockphoto.com/id/1370772148/photo/track-and-mountains-in-valle-del-lago-somiedo-nature-park-asturias-spain.jpg?s=612x612&w=0&k=20&c=QJn62amhOddkJSbihcjWKHXShMAfcKM0hPN65aCloco="
+              alt="" />
           </a>
           <div class="p-5">
             <a href="#">
               <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                 post.title
+                post.title
               </h5>
             </a>
             <a href="#"

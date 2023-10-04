@@ -2,7 +2,6 @@ var mongoosedb = require('../config/dbconfig');
 var bcrypt = require('bcryptjs');
 
 
-
 let date = new Date();
 date = date.toLocaleDateString('en-us', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true });
 
@@ -35,16 +34,16 @@ var UserSchema = mongoosedb.Schema({
     },
 });
 
-var User = module.exports = mongoosedb.model('User', UserSchema);
+var UserModel = module.exports = mongoosedb.model('User', UserSchema);
 
 
 module.exports.getUserById = function (id, callback) {
-    User.findById(id, callback);
+    UserModel.findById(id, callback);
 }
 
 module.exports.getUserByUsername = function (username, callback) {
     var query = { username: username };
-    User.findOne(query, callback);
+    UserModel.findOne(query, callback());
 }
 
 module.exports.comparePassword = function (candidatePassword, hash, callback) {
@@ -57,7 +56,7 @@ module.exports.createUser = function (newUser, callback) {
     bcrypt.genSalt(10, function (err, salt) {
         bcrypt.hash(newUser.password, salt, function (err, hash) {
             newUser.password = hash;
-            newUser.save();
+            newUser.save(callback());
         });
     });
 }
