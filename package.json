@@ -3,10 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "nodemon -e js,ejs,json ./bin/www"
   },
   "dependencies": {
-    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
     "connect-flash": "^0.1.1",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
@@ -18,13 +18,13 @@
     "express-session": "^1.17.3",
     "express-useragent": "^1.0.15",
     "express-validator": "^7.0.1",
+    "flowbite": "^1.8.1",
     "http-errors": "~1.6.3",
     "mongoose": "^7.5.3",
     "morgan": "~1.9.1",
     "multer": "^1.4.5-lts.1",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
-    "post-cli": "^1.0.5",
     "postcss-cli": "^10.1.0"
   },
   "devDependencies": {
