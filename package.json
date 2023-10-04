@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon -e js,ejs,json ./bin/www"
+    "start": "nodemon -e js,ejs,json ./bin/www",
+    "tailwind": "postcss ./public/assets/css/main.css -o ./public/assets/css/styles.css --watch"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
