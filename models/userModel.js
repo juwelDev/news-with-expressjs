@@ -43,7 +43,7 @@ module.exports.getUserById = function (id, callback) {
 
 module.exports.getUserByUsername = function (username, callback) {
     var query = { username: username };
-    UserModel.findOne(query, callback());
+    UserModel.findOne(query, callback);
 }
 
 module.exports.comparePassword = function (candidatePassword, hash, callback) {
@@ -56,7 +56,7 @@ module.exports.createUser = function (newUser, callback) {
     bcrypt.genSalt(10, function (err, salt) {
         bcrypt.hash(newUser.password, salt, function (err, hash) {
             newUser.password = hash;
-            newUser.save(callback());
+            newUser.save(callback);
         });
     });
 }
