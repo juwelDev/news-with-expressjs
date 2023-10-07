@@ -18,7 +18,7 @@ var passport = require("passport");
 var localStrategy = require("passport-local").Strategy;
 const { body, validationResult } = require("express-validator");
 
-var User = require("../models/user");
+var User = require("../models/userModel");
 
 /* GET users listing. */
 router.get("/", function (req, res, next) {
