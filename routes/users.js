@@ -27,7 +27,7 @@ var passport = require('passport');
 var localStrategy = require('passport-local').Strategy;
 const { body, validationResult } = require('express-validator');
 
-var User = require('../models/user');
+var UserModel = require('../models/userModel');
 
 /* GET users listing. */
 
@@ -58,7 +58,7 @@ router.post('/register',
     if (!errors.isEmpty()) {
       res.render('register', { title: 'User account register', errors: errors.errors, user: req.user });
     } else {
-      var newUser = new User({
+      var newUser = new UserModel({
         name: name,
         email: email,
         username: username,
@@ -67,7 +67,7 @@ router.post('/register',
         role: 'user',
       });
 
-      const userName = await User.findOne({ username: username });
+      const userName = await UserModel.findOne({ username: username });
 
       if (userName) {
         const errdt = [
@@ -81,7 +81,7 @@ router.post('/register',
         res.render('register', { title: 'User account register', errors: errdt, user: req.user });
       } else {
 
-        const emailData = await User.findOne({ email: email });
+        const emailData = await UserModel.findOne({ email: email });
 
         if (emailData) {
           const errdt = [
@@ -95,7 +95,7 @@ router.post('/register',
           res.render('register', { title: 'User account register', errors: errdt, user: req.user });
         } else {
 
-          User.createUser(newUser, function (err, user) {
+          UserModel.createUserModel(newUser, function (err, user) {
             console.log(err);
             if (err) throw err;
             console.log(user);
