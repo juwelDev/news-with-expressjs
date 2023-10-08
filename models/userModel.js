@@ -40,15 +40,15 @@ var UserSchema = mongoosedb.Schema({
   },
 });
 
-var User = (module.exports = mongoosedb.model("User", UserSchema));
+var UserModel = (module.exports = mongoosedb.model("UserModel", UserSchema));
 
 module.exports.getUserById = function (id, callback) {
-  User.findById(id, callback);
+  UserModel.findById(id, callback);
 };
 
 module.exports.getUserByUsername = function (username, callback) {
   var query = { username: username };
-  User.findOne(query, callback);
+  UserModel.findOne(query, callback);
 };
 
 module.exports.comparePassword = function (candidatePassword, hash, callback) {

@@ -18,7 +18,7 @@ var passport = require("passport");
 var localStrategy = require("passport-local").Strategy;
 const { body, validationResult } = require("express-validator");
 
-var User = require("../models/userModel");
+var UserModel = require("../models/userModel");
 
 /* GET users listing. */
 router.get("/", function (req, res, next) {
@@ -53,7 +53,8 @@ router.post(
         user: req.user,
       });
     } else {
-      var newUser = new User({
+      var newUser = new UserModel({
+        //User or UserModel ?
         name: name,
         email: email,
         username: username,
@@ -61,7 +62,7 @@ router.post(
         profileimg: "",
         role: "user",
       });
-      const userName = await User.findOne({ username: username });
+      const userName = await UserModel.findOne({ username: username });
       if (userName) {
         const errdt = [
           {
@@ -77,7 +78,7 @@ router.post(
           user: req.user,
         });
       } else {
-        const emailData = await User.findOne({ email: email });
+        const emailData = await UserModel.findOne({ email: email });
 
         if (emailData) {
           const errdt = [
@@ -94,14 +95,14 @@ router.post(
             user: req.user,
           });
         } else {
-          User.createUser(newUser, function (err, user) {
+          UserModel.createUser(newUser, function (err, user) {
             console.log(err);
             if (err) throw err;
             console.log(user);
           });
 
           req.flash("success", "You are now registered and can loging now..");
-          res.location("/");
+          // res.location("/");
           res.redirect("/");
         }
       }
