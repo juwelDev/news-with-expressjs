@@ -48,20 +48,19 @@
       </div>
 
       <div class="w-full grid grid-cols-4 gap-4 content-center p-3">
+        <% if(posts){ posts.forEach(function(post){ %>
         <div
           class="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
-          <a href="#">
-            <img class="rounded-t-lg"
-              src="https://media.istockphoto.com/id/1370772148/photo/track-and-mountains-in-valle-del-lago-somiedo-nature-park-asturias-spain.jpg?s=612x612&w=0&k=20&c=QJn62amhOddkJSbihcjWKHXShMAfcKM0hPN65aCloco="
-              alt="" />
+          <a href="<%= baseUrl %>/news/<%= post.slug %>">
+            <img class="rounded-t-lg" src="<%= baseUrl %>/uploads/<%= post.featured_image %>" alt="" />
           </a>
           <div class="p-5">
-            <a href="#">
+            <a href="<%= baseUrl %>/news/<%= post.slug %>">
               <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                post.title
+                <%= post.title %>
               </h5>
             </a>
-            <a href="#"
+            <a href="<%= baseUrl %>/news/<%= post.slug %>"
               class="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
               Read more
               <svg aria-hidden="true" class="ml-2 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20"
@@ -73,6 +72,7 @@
             </a>
           </div>
         </div>
+        <% }); }; %>
       </div>
 
 
