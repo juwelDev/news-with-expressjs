@@ -36,16 +36,6 @@ var UserSchema = mongoosedb.Schema({
 
 var UserModel = module.exports = mongoosedb.model('User', UserSchema);
 
-
-module.exports.getUserById = function (id, callback) {
-    UserModel.findById(id, callback);
-}
-
-module.exports.getUserByUsername = function (username, callback) {
-    var query = { username: username };
-    UserModel.findOne(query, callback);
-}
-
 module.exports.comparePassword = function (candidatePassword, hash, callback) {
     bcrypt.compare(candidatePassword, hash, function (err, isMatch) {
         callback(null, isMatch);
@@ -56,7 +46,7 @@ module.exports.createUser = function (newUser, callback) {
     bcrypt.genSalt(10, function (err, salt) {
         bcrypt.hash(newUser.password, salt, function (err, hash) {
             newUser.password = hash;
-            newUser.save(callback);
+            newUser.save();
         });
     });
 }

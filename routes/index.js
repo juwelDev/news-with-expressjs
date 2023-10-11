@@ -8,16 +8,18 @@ router.get('/', function (req, res, next) {
 
   const success = req.flash('success');
   const error = req.flash('error');
-  
-  console.log('flash success', success); 
-  console.log('flash error', error); 
+  const user = req.user;
+
+  // console.log('flash success', success);
+  // console.log('flash error', error);
+  console.log('req user', req.user);
 
   const data = {
     title: 'Nes Express',
     baseUrl: base_url,
     flashSuccess: success,
     flashError: error,
-    // user: req.user,
+    user: user,
     // posts: posts,
   };
 
@@ -26,7 +28,15 @@ router.get('/', function (req, res, next) {
 
 
 router.get('/login', function (req, res, next) {
-  res.render('login', { title: 'User account login' });
+  const success = req.flash('success');
+  const error = req.flash('error');
+
+  res.render('login', {
+    title: 'User account login',
+    flashSuccess: success,
+    flashError: error,
+    user: req.user
+  });
 });
 
 router.get('/register', function (req, res, next) {

@@ -41,24 +41,18 @@ passport.serializeUser(function (user, done) {
   done(null, user.id);
 });
 
-passport.deserializeUser(function (id, done) {
-  UserModel.getUserById(id, function (err, user) {
-    done(err, user);
-  });
+passport.deserializeUser(async function (id, done) {
+  const user = await UserModel.findById(id);
+  done(null, user);
 });
 
-passport.use(new localStrategy(function (username, password, done) {
-  UserModel.getUserByUsername(username, function (err, user) {
+passport.use(new localStrategy(async function (username, password, done) {
+  const user = await UserModel.findOne({ username: username });
+  // console.log('user', user);
 
-    console.log('user', user);
-
-
-    if (err) throw err;
-
-    if (!user) {
-      return done(null, false, { message: 'Unkn  own User' });
-    }
-
+  if (!user) {
+    return done(null, false, { message: 'User not foundr' });
+  }else {
     UserModel.comparePassword(password, user.password, function (err, isMatch) {
       if (err) return done(err);
       if (isMatch) {
@@ -67,7 +61,7 @@ passport.use(new localStrategy(function (username, password, done) {
         return done(null, false, { message: 'Invalid Password' });
       }
     })
-  });
+  }
 }));
 
 router.get('/logout', function (req, res) {
