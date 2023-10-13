@@ -7,11 +7,11 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/login', function (req, res, next) {
-  res.render('login', { title: 'User account login' });
+  res.render('login', { title: 'User account login'});
 });
 
   router.get('/register', function (req, res, next) { 
-    res.render('register', { title: "User account register", errors:'', user: req.user });
+    res.render('register', { title: "User account register"});
   });
 
 

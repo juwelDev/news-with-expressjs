@@ -24,16 +24,6 @@
         <h1><%= title %></h1>
         </div>
 
-
-        <% if(errors){ errors.forEach(function(error){ %>
-        <div class="w-full text-center mb-4">
-            <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
-            role="alert">
-            <span class="font-medium"><%= error.msg %></span>
-            </div>
-        </div>
-        <% }); }; %>
-
         <div class="flex justify-center items-center content-center">
         <div class="w-7/12 bg-gray-100 rounded-md p-12">
             <form action="/users/register" method="post">

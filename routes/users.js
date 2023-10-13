@@ -64,7 +64,7 @@ router.post('/register',
         username: username,
         password: password,
         profileimg: '',
-        role: 'user',
+        role: 'userModel',
       });
 
       const userName = await UserModel.findOne({ username: username });
@@ -95,10 +95,10 @@ router.post('/register',
           res.render('register', { title: 'User account register', errors: errdt, user: req.user });
         } else {
 
-          UserModel.createUserModel(newUser, function (err, user) {
+          UserModel.createUserModel(newUser, function (err, userModel) {
             console.log(err);
             if (err) throw err;
-            console.log(user);
+            console.log(userModel);
           });
 
           req.flash('success', 'You are now registered and can loging now..')
