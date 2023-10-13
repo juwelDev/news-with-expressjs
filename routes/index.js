@@ -19,8 +19,8 @@ router.get("/", function (req, res, next) {
 
 router.get("/login", function (req, res, next) {
   res.render("login", {
-    title: "User account login",
     flashsms: req.flash("success"),
+    flasherr: req.flash("error"),
     user: req.user,
   });
 });
