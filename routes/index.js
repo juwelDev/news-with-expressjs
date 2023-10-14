@@ -110,7 +110,6 @@ router.get('/', async function (req, res, next) {
 
 /* GET slug page. */
 router.get('/news/:slug', async function (req, res, next) {
-
   let slug = req.params.slug;
   console.log('slug :- ', slug);
   const posts = await PostModel.find({});
@@ -152,6 +151,8 @@ router.get('/login', function (req, res, next) {
     user: req.user
   });
 });
+
+
 
 router.get('/register', function (req, res, next) {
   res.render('register', { title: 'User account register', errors: '', user: req.user });

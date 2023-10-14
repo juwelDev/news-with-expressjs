@@ -62,7 +62,7 @@ router.post('/user-add', isAdmin,
     body('email', 'Email is required.').notEmpty(),
     body('email', 'Email is not valid.').isEmail(),
     body('username', 'Username is required.').notEmpty(),
-    body('password', 'Password is min 6.').isLength({ min: 6 }),
+    body('password', 'Password is min 3.').isLength({ min: 3 }),
     body('role', 'Role is required.').notEmpty(),
     async function (req, res, next) {
         var name = req.body.name;
@@ -81,7 +81,7 @@ router.post('/user-add', isAdmin,
                 title: 'Add new user account',
                 baseUrl: base_url,
                 user: req.user,
-                errors: errdt,
+                errors: errors,
             });
         } else {
             const HashedPassword = await bcrypt.hash(password, 10)
