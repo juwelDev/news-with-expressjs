@@ -5,12 +5,14 @@ const base_url = process.env.BASEURL || "http://localhost:3000";
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
-  console.log("flashi", req.flash("success"));
+  
+  const success = req.flash("success");
+  const error = req.flash("error");
   const data = {
     title: "Nes Express",
     baseUrl: base_url,
-    flashsms: req.flash("success"),
-    flasherr: req.flash("error"),
+    flashsms: success,
+    flasherr: error,
     // user: req.user,
     // posts: posts,
   };
@@ -18,9 +20,14 @@ router.get("/", function (req, res, next) {
 });
 
 router.get("/login", function (req, res, next) {
+    const success = req.flash("success");
+    const error = req.flash("error");
+
+    console.log('user', req.user);
   res.render("login", {
-    flashsms: req.flash("success"),
-    flasherr: req.flash("error"),
+    title: "User account login",
+    flashsms: success,
+    flasherr: error,
     user: req.user,
   });
 });

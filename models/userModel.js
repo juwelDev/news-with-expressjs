@@ -42,14 +42,14 @@ var UserSchema = mongoosedb.Schema({
 
 var UserModel = (module.exports = mongoosedb.model("UserModel", UserSchema));
 
-module.exports.getUserById = function (id, callback) {
-  UserModel.findById(id, callback);
-};
+// module.exports.getUserById = function (id, callback) {
+//   UserModel.findById(id, callback);
+// };
 
-module.exports.getUserByUsername = function (username, callback) {
-  var query = { username: username };
-  UserModel.findOne(query, callback);
-};
+// module.exports.getUserByUsername = function (username, callback) {
+//   var query = { username: username };
+//   UserModel.findOne(query, callback);
+// };
 
 module.exports.comparePassword = function (candidatePassword, hash, callback) {
   bcrypt.compare(candidatePassword, hash, function (err, isMatch) {

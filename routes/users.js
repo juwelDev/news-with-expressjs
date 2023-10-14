@@ -45,6 +45,7 @@ passport.serializeUser(function (user, done) {
 passport.deserializeUser(async function (id, done) {
   const user = await UserModel.findById(id);
   done(null, user);
+  
 });
 
 passport.use(new localStrategy(async function (username, password, done) {
