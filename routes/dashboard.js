@@ -22,12 +22,12 @@ var passport = require('passport');
 var localStrategy = require('passport-local').Strategy;
 const { body, validationResult } = require('express-validator');
 
-var User = require('../models/userModel');
+var UserModel = require('../models/userModel');
 var Categories = require('../models/categories');
-var Post = require('../models/postModel');
-var View = require('../models/viewModel');
+var ViewModel = require('../models/viewModel');
+var PostModel = require('../models/postModel');
 
-const { isAdmin } = require('../config/auth')
+const { isAdmin } = require('../config/auth' ) 
 
 const base_url = process.env.BASEURL || 'http://localhost:3000';
 
@@ -85,7 +85,7 @@ router.post('/user-add', isAdmin,
         } else {
             const HashedPassword = await bcrypt.hash(password, 10)
 
-            var newUser = new User({
+            var newUser = new UserModel({
                 name: name,
                 email: email,
                 username: username,
@@ -94,7 +94,7 @@ router.post('/user-add', isAdmin,
                 role: role,
             });
 
-            const userName = await User.findOne({ username: username });
+            const userName = await UserModel.findOne({ username: username });
 
             if (userName) {
                 const errdt = [
@@ -112,7 +112,7 @@ router.post('/user-add', isAdmin,
                     errors: errdt,
                 });
             } else {
-                const emailData = await User.findOne({ email: email });
+                const emailData = await UserModel.findOne({ email: email });
                 if (emailData) {
                     const errdt = [
                         {
@@ -129,7 +129,7 @@ router.post('/user-add', isAdmin,
                         errors: errdt,
                     });
                 } else {
-                    const addUser = await new User(newUser).save()
+                    const addUser = await new UserModel(newUser).save()
                     console.log('addUser : ', addUser);
                     req.flash('success', 'You are now registered and can loging now..')
                     res.location('/dashboard/user-list');
@@ -143,7 +143,7 @@ router.post('/user-add', isAdmin,
 
 /* GET user list page. */
 router.get('/user-list', isAdmin, async function (req, res, next) {
-    const users = await User.find({});
+    const users = await UserModel.find({});
     res.render('dashboard/userList', {
         title: 'User account List | Admin Dashboard',
         baseUrl: base_url,
@@ -159,7 +159,7 @@ router.get('/user-list', isAdmin, async function (req, res, next) {
 //  User Edit Page
 router.get('/user-edit', isAdmin, async function (req, res, next) {
 
-    const userEdit = await User.findById(req.query.id);
+    const userEdit = await UserModel.findById(req.query.id);
     // console.log('user :- ', userEdit);
     const data = {
         title: 'User account LEditist | Admin Dashboard',
@@ -195,7 +195,7 @@ router.post('/user-update', isAdmin,
         console.log(errors)
 
         if (!errors.isEmpty()) {
-            const userEdit = await User.findById(id);
+            const userEdit = await UserModel.findById(id);
             const data = {
                 title: 'User account Edit | Admin Dashboard',
                 baseUrl: base_url,
@@ -213,7 +213,7 @@ router.post('/user-update', isAdmin,
                 role: role,
             };
 
-            const upData = await User.updateOne({ _id: id }, updateUser);
+            const upData = await UserModel.updateOne({ _id: id }, updateUser);
 
             console.log('User Update :- ', upData);
 
@@ -230,7 +230,7 @@ router.post('/user-update', isAdmin,
 router.get('/user-del', async function (req, res, next) {
     // console.log(req.query);
     var id = req.query.id;
-    const delData = await User.deleteOne({ _id: id });
+    const delData = await UserModel.deleteOne({ _id: id });
     console.log('User delete :- ', delData);
     res.send('User delete');
 });
@@ -460,16 +460,16 @@ router.get('/cat-del', async function (req, res, next) {
 
 /* GET post list page. */
 router.get('/post-list', isAdmin, async function (req, res, next) {
-    const posts = await Post.find({});
-    const users = await User.find({});
+    const posts = await PostModel.find({});
+    const users = await UserModel.find({});
     const categories = await Categories.find({});
 
     const userName = (uid) => {
         let userName;
         if (uid == '') { } else {
             users.forEach((user) => {
-                if (user._id == uid) {
-                    userName = user.name;
+                if (UserModel._id == uid) {
+                    userName = UserModel.name;
                 }
             })
         }
@@ -500,19 +500,19 @@ router.get('/post-list', isAdmin, async function (req, res, next) {
 
     posts.forEach(async (post) => {
         postsList.push({
-            _id: post._id,
-            slug: post.slug,
-            title: post.title,
-            description: post.description,
-            category: `${catName(post.category)}`,
-            tag: post.tag,
-            featured_image: post.featured_image,
-            author: `${userName(post.author)}`,
-            seo_description: post.seo_description,
-            seo_keywords: post.seo_keywords,
-            view: post.view,
-            date_at: post.date_at,
-            __v: post.__v
+            _id: PostModel._id,
+            slug: PostModel.slug,
+            title: PostModel.title,
+            description: PostModel.description,
+            category: `${catName(PostModel.category)}`,
+            tag: PostModel.tag,
+            featured_image: PostModel.featured_image,
+            author: `${userName(PostModel.author)}`,
+            seo_description: PostModel.seo_description,
+            seo_keywords: PostModel.seo_keywords,
+            view: PostModel.view,
+            date_at: PostModel.date_at,
+            __v: PostModel.__v
         })
     })
 
@@ -585,7 +585,7 @@ router.post('/post-add', isAdmin,
 
             let results = [];
 
-            const posts = await Post.find({});
+            const posts = await PostModel.find({});
             for (var i = 0; i < posts.length; i++) {
                 if (posts[i].slug.toLowerCase().includes(slug.toLowerCase()) && slug) {
                     results.push(posts[i]);
@@ -607,7 +607,7 @@ router.post('/post-add', isAdmin,
                 tag: tag,
                 featured_image: featured_image,
                 category: category,
-                author: req.user._id,
+                author: req.UserModel._id,
                 seo_description: seo_description,
                 seo_keywords: seo_keywords,
             });
@@ -628,7 +628,7 @@ router.post('/post-add', isAdmin,
 router.get('/post-edit', isAdmin, async function (req, res, next) {
 
     let postId = req.query.id;
-    const post = await Post.findOne({ _id: postId });
+    const post = await PostModel.findOne({ _id: postId });
     const categoryList = await Categories.find({});
     res.render('dashboard/postEdit', {
         title: 'Post Edit | Admin Dashboard',
@@ -657,7 +657,7 @@ router.post('/post-update', isAdmin,
         let seo_keywords = req.body.seo_keywords;
 
         // console.log(req.body);
-        // const postImg = await Post.findOne({ _id: id });
+        // const postImg = await PostModel.findOne({ _id: id });
 
         // if (req.file) {
         //     upload.single('featured_image');
@@ -673,7 +673,7 @@ router.post('/post-update', isAdmin,
         console.log(errors)
 
         if (!errors.isEmpty()) {
-            const post = await Post.findOne({ _id: id });
+            const post = await PostModel.findOne({ _id: id });
             const categoryList = await Categories.find({});
             res.render('dashboard/postEdit', {
                 title: 'Post Edit | Admin Dashboard',
@@ -691,7 +691,7 @@ router.post('/post-update', isAdmin,
 
             let results = [];
 
-            const posts = await Post.find({});
+            const posts = await PostModel.find({});
             for (var i = 0; i < posts.length; i++) {
                 if (posts[i].slug.toLowerCase().includes(slug.toLowerCase()) && slug) {
                     results.push(posts[i]);
@@ -711,12 +711,12 @@ router.post('/post-update', isAdmin,
                 category: category,
                 tag: tag,
                 category: category,
-                author: req.user._id,
+                author: req.UserModel._id,
                 seo_description: seo_description,
                 seo_keywords: seo_keywords,
             };
 
-            const upData = await Post.updateOne({ _id: id }, updatePost);
+            const upData = await PostModel.updateOne({ _id: id }, updatePost);
 
             console.log('Post Update :- ', upData);
 
@@ -736,13 +736,13 @@ router.post('/post-image',
         let id = req.body.id;
 
         // console.log(req.body);
-        const post = await Post.findOne({ _id: id });
+        const post = await PostModel.findOne({ _id: id });
 
         if (req.file) {
             console.log('Uploading File......');
             var featured_image = today + '_' + req.file.originalname;
         } else {
-            var featured_image = post.featured_image;
+            var featured_image = PostModel.featured_image;
             console.log('No File Uploading......');
         }
 
@@ -767,7 +767,7 @@ router.post('/post-image',
                 featured_image: featured_image,
             };
 
-            const upData = await Post.updateOne({ _id: id }, updatePost);
+            const upData = await PostModel.updateOne({ _id: id }, updatePost);
 
             console.log('Post Update :- ', upData);
 
@@ -783,7 +783,7 @@ router.post('/post-image',
 router.get('/post-del', async function (req, res, next) {
     // console.log(req.query);
     var id = req.query.id;
-    const delData = await Post.deleteOne({ _id: id });
+    const delData = await PostModel.deleteOne({ _id: id });
     console.log('Post delete :- ', delData);
     res.send('Categories delete');
 });
